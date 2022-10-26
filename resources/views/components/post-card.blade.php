@@ -60,3 +60,27 @@
       >
     </div>
   </div>    
+  <script>
+    function RemoveAllSounds() {
+       document.querySelector('video').muted = true;
+       var sound = document.querySelector('.sound-video-icon');
+       sound.classList.remove('fa-volume-high');
+       sound.classList.add('fa-volume-xmark');
+    }
+    function playv(element) {
+      RemoveAllSounds();
+      var video = element.childNodes[3];
+      var icon = element.childNodes[1].childNodes[1];
+      
+      if (video.muted === false) {
+       video.muted = true;
+       icon.classList.add('fa-volume-xmark');
+       icon.classList.remove('fa-volume-high');
+      }else{    
+        video.muted = false;
+        icon.classList.remove('fa-volume-xmark');
+        icon.classList.add('fa-volume-high');
+
+      }
+    }
+  </script>
