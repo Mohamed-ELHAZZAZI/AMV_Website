@@ -27,9 +27,8 @@
     <!--------------
       Media section
     ----------------->
-    <div class="w-full bg-black min-h-96 mt-2">
-      <img src="{{asset('image/bleach.jpg')}}" alt="" class="mx-auto" />
-    </div>
+    <x-post-media-section :media='$post->media' />
+
     <!--------------
       tags section
     ----------------->
