@@ -18,7 +18,7 @@ class Posts extends Model
     public function scopeSearch($query, $search)
     {
         if ($search ?? false) {
-            $query->where('description' , 'like' , '%'. $search . '%');
+            $query->where('title' , 'like' , '%'. $search . '%');
         }
     }
 }
