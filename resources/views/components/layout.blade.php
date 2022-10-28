@@ -119,7 +119,7 @@
           </li>
           @else
           <li class="hover:bg-dark-400 px-5">
-            <a href="http://localhost/Amv/public/profile/" class="w-full h-10 flex items-center">Sign Up / Login in</a>
+            <a href="/login" class="w-full h-10 flex items-center">Sign Up / Login in</a>
           </li>
           @endauth
 

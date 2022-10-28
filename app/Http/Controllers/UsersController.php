@@ -23,12 +23,12 @@ class UsersController extends Controller
 
     function register()
     {
-        return view('register');
+        return view('users.register');
     }
 
     function login()
     {
-        return view('login');
+        return view('users.login');
     }
 
     function store(Request $request)
@@ -56,5 +56,21 @@ class UsersController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    function authenticate(Request $request)
+    {
+        $loginFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required',
+        ]);
+
+        if (auth()->attempt($loginFields)) {
+            $request->session()->regenerate();
+
+            return redirect('/');
+        }
+
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput();
     }
 }
