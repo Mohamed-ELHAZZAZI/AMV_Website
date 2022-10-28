@@ -21,4 +21,9 @@ class Posts extends Model
             $query->where('title' , 'like' , '%'. $search . '%');
         }
     }
+
+    public function user()
+    {
+        return $this->hasMany(Posts::class, 'user_id');
+    }
 }

@@ -90,6 +90,7 @@ class PostsController extends Controller
                 $post->media = $media_Name;
                 $post->title = $res->input('title');
                 $post->tags = $res->input('tags');
+                $post->user_id = auth()->user()->id;
                 $post->save();
 
                 return response()->json([
