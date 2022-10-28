@@ -24,10 +24,15 @@
       <a href="#" class="nav-icon" id="searchFormToggle">
         <i class="fa-solid fa-magnifying-glass"></i>
       </a>
-
+      @auth
+          
       <a href="#" class="nav-icon hidden sm:flex">
         <i class="fa-solid fa-bell"></i>
       </a>
+      
+      @else
+      
+      @endauth
 
       <a
         href="#"
@@ -89,12 +94,15 @@
         id="profileList"
       >
         <ul>
+          @auth
           <li class="hover:bg-dark-400 px-5">
             <a href="http://localhost/Amv/public/profile/" class="w-full h-10 flex items-center">My Profile</a>
           </li>
+              
           <li class="hover:bg-dark-400 px-5">
             <a href="#" class="w-full h-10 flex items-center">Saved</a>
           </li>
+                    
           <li class="hover:bg-dark-400 px-5">
             <a href="/settings/" class="w-full h-10 flex items-center">Setting</a>
           </li>
@@ -104,8 +112,17 @@
             >
           </li>
           <li class="hover:bg-dark-400 px-5">
-            <a href="#" class="w-full h-10 flex items-center">Log out</a>
+            <form action="/user/logout" method="post">
+              @csrf
+              <input type="submit" href="#" class="w-full h-10 flex items-center cursor-pointer" value='log out'>
+            </form>
           </li>
+          @else
+          <li class="hover:bg-dark-400 px-5">
+            <a href="http://localhost/Amv/public/profile/" class="w-full h-10 flex items-center">Sign Up / Login in</a>
+          </li>
+          @endauth
+
         </ul>
       </div>
     </nav>

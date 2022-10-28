@@ -51,6 +51,10 @@ Route::get('/login', [UsersController::class , 'login']);
 
 //store user (Sign UP)
 Route::post('/user/store', [UsersController::class, 'store']);
+
+//logout 
+Route::post('/user/logout', [UsersController::class, 'logout']);
+
 //DEMO
 
 //fake daa for profile page
