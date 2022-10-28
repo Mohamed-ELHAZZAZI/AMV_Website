@@ -32,7 +32,7 @@ Route::get('/tag/{tag}' , [PostsController::class , 'TagFilter']);
 Route::get('/search/' , [PostsController::class, 'SearchFilter']);
 
 //create post page
-Route::get('/create' , [PostsController::class , 'create']);
+Route::get('/create' , [PostsController::class , 'create'])->middleware('auth');
 
 //create post page
 Route::post('/posts/store' , [PostsController::class , 'store']);
@@ -41,13 +41,13 @@ Route::post('/posts/store' , [PostsController::class , 'store']);
 Route::get('/settings', function()
 {
     return view('system.settings');
-});
+})->middleware('auth');
 
 //register page
-Route::get('/register', [UsersController::class , 'register']);
+Route::get('/register', [UsersController::class , 'register'])->middleware('guest');
 
 //login page
-Route::get('/login', [UsersController::class , 'login']);
+Route::get('/login', [UsersController::class , 'login'])->middleware('guest')->name('login');
 
 //store user (Sign UP)
 Route::post('/user/store', [UsersController::class, 'store']);
@@ -56,7 +56,7 @@ Route::post('/user/store', [UsersController::class, 'store']);
 Route::post('/user/authenticate', [UsersController::class, 'authenticate']);
 
 //logout 
-Route::post('/user/logout', [UsersController::class, 'logout']);
+Route::post('/user/logout', [UsersController::class, 'logout'])->middleware('auth');
 
 //DEMO
 
