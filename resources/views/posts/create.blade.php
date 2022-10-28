@@ -158,6 +158,7 @@
                   })
                 }else {
                   setError(response.message);
+                  window.location.href = '/';
                 }
               },
               

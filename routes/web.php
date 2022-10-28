@@ -37,10 +37,20 @@ Route::get('/create' , [PostsController::class , 'create']);
 //create post page
 Route::post('/posts/store' , [PostsController::class , 'store']);
 
+//settings page
 Route::get('/settings', function()
 {
     return view('system.settings');
 });
+
+//register page
+Route::get('/register', [UsersController::class , 'register']);
+
+//login page
+Route::get('/login', [UsersController::class , 'login']);
+
+//store user (Sign UP)
+Route::post('/user/store', [UsersController::class, 'store']);
 //DEMO
 
 //fake daa for profile page

@@ -22,7 +22,7 @@
       discreption section
     ----------------->
     <p>
-      {{$post->description}}
+      {{$post->title}}
     </p>
     <!--------------
       Media section

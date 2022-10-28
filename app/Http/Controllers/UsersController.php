@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -17,5 +19,33 @@ class UsersController extends Controller
         }
 
         return abort('404');
+    }
+
+    function register()
+    {
+        return view('register');
+    }
+
+    function login()
+    {
+        return view('login');
+    }
+
+    function store(Request $request)
+    {
+        $SignUpFields = $request->validate([
+            'name' => ['required','string', 'min:4' , 'max:15'],
+            'username' => ['required', 'min:4' , 'max:10', Rule::unique('users', 'username')],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        $SignUpFields['password'] = bcrypt($SignUpFields['password']);
+
+        $user = User::create($SignUpFields);
+
+        auth()->login($user);
+
+        return redirect('/');
     }
 }
