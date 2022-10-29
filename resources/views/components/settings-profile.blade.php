@@ -31,10 +31,10 @@
             accept="image/jpeg, image/jpg, image/png"
           />
         </div>
-        <span class="font-bold">Display Name</span>
+        <span class="font-bold">Full name</span>
         <input
           type="text"
-          value="Med"
+          value="{{auth()->user()->name}}"
           class="w-full h-10 bg-transparent border border-gray-400 border-opacity-30 px-3 outline-none"
         />
         <span class="font-bold">Gender</span>

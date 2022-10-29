@@ -7,13 +7,13 @@
         <span class="font-bold">Username</span>
         <input
           type="text"
-          value="aminemohamedf7"
+          value="{{auth()->user()->username}}"
           class="w-full h-10 bg-transparent border border-gray-400 border-opacity-30 px-3 outline-none"
         />
         <span class="font-bold">Email</span>
         <input
           type="text"
-          value="aminemohamedf7@gmail.com"
+          value="{{auth()->user()->email}}"
           class="w-full h-10 bg-transparent border border-gray-400 border-opacity-30 px-3 outline-none"
         />
         <a
