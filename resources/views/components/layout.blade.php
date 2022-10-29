@@ -96,11 +96,11 @@
         <ul>
           @auth
           <li class="hover:bg-dark-400 px-5">
-            <a href="http://localhost/Amv/public/profile/" class="w-full h-10 flex items-center">My Profile</a>
+            <a href="/u/{{'@' . auth()->user()->username}}/profile" class="w-full h-10 flex items-center">My Profile</a>
           </li>
               
           <li class="hover:bg-dark-400 px-5">
-            <a href="#" class="w-full h-10 flex items-center">Saved</a>
+            <a href="/u/{{'@' . auth()->user()->username}}/saved" class="w-full h-10 flex items-center">Saved</a>
           </li>
                     
           <li class="hover:bg-dark-400 px-5">

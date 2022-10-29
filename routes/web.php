@@ -57,10 +57,5 @@ Route::post('/user/authenticate', [UsersController::class, 'authenticate']);
 //logout 
 Route::post('/user/logout', [UsersController::class, 'logout'])->middleware('auth');
 
-//DEMO
-
-//fake daa for profile page
-
-Route::get('/u/{users}', [UsersController::class, 'show']);
-
-Route::get('/u/{users}/{param}', [UsersController::class, 'show']);
+//user profile
+Route::get('/u/@{users}/{param}', [UsersController::class, 'show']);

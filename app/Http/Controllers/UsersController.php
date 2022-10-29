@@ -9,12 +9,12 @@ use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
-    function show($id, $param)
+    function show($username, $param)
     {
-        if (in_array($param, ['saved', 'posts'])) {
+
+        if (in_array($param, ['saved', 'profile'])) {
             return view('users.index', [
-                'posts' => Post::with('user')->where('user_id', '=', $id)->get(),
-                'owner' => User::find($id),
+                'user' => User::with('posts')->where('username', '=', $username)->first(),
                 'param' => $param,
             ]);
         }
