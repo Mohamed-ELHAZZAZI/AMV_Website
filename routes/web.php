@@ -65,3 +65,6 @@ Route::put('/user/update-profile', [UsersController::class, 'updateProfile']);
 
 //user update account
 Route::put('/user/update-account', [UsersController::class, 'updateAccount']);
+
+//user update passwoed
+Route::put('/user/update-password', [UsersController::class, 'updatePassword']);

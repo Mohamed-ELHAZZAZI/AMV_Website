@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -110,5 +111,28 @@ class UsersController extends Controller
         $user->update($validator->validate());
 
         return redirect('/u/@' . $user->username . '/profile');
+    }
+
+    function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'OldPassword' => 'required',
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/settings?section=password')->withInput()->withErrors($validator);
+        }
+
+        $user = auth()->user();
+        if(Hash::check($request->OldPassword, $user->password)){
+            $hashedPass =  bcrypt($request->password);
+            $user->password = $hashedPass;
+            $user->update();
+            return redirect('/');
+        }
+
+        return redirect('/settings?section=password')->withInput()->withErrors(['OldPassword' => 'The old password is incorrect!']);
+        
     }
 }
