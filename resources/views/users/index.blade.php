@@ -13,16 +13,16 @@
             </div>
           </div>
           <div class="w-full pr-1 text-sm">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a harum odio reprehenderit suscipit cupiditate sint modi voluptatibus tempora quidem?</p>
+            <p>{{$user->about}}</p>
           </div>
         </div>
 
         <div class="w-full h-10 border-b border-gray-400 border-opacity-10 mb-4">
             <ul class="flex h-full">
-              <li><a href="/u/{{$user->id}}/posts" class="flex items-center px-3 h-full border-white @if($param == 'profile') border-b-2 @else opacity-40 @endif">Posts</a></li>
+              <li><a href="/u/{{'@'.$user->username}}/profile" class="flex items-center px-3 h-full border-white @if($param == 'profile') border-b-2 @else opacity-40 @endif">Posts</a></li>
               @auth
                 @if ((auth()->user()->id == $user->id))
-                  <li><a href="/u/{{$user->id}}/saved" class="flex items-center px-3 h-full  border-white @if($param == 'saved') border-b-2 @else opacity-40 @endif">Saved</a></li>
+                  <li><a href="/u/{{'@'.$user->username}}/saved" class="flex items-center px-3 h-full  border-white @if($param == 'saved') border-b-2 @else opacity-40 @endif">Saved</a></li>
                 @endif
               @endauth
             </ul>

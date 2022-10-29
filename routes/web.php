@@ -40,7 +40,7 @@ Route::post('/posts/store', [PostsController::class, 'store']);
 //settings page
 Route::get('/settings', function () {
     return view('system.settings');
-})->middleware('auth');
+})->middleware('auth')->name('profile');
 
 //register page
 Route::get('/register', [UsersController::class, 'register'])->middleware('guest');
@@ -59,3 +59,6 @@ Route::post('/user/logout', [UsersController::class, 'logout'])->middleware('aut
 
 //user profile
 Route::get('/u/@{users}/{param}', [UsersController::class, 'show']);
+
+//user update profile
+Route::put('/user/update-profile', [UsersController::class, 'updateProfile']);

@@ -178,6 +178,11 @@ function isFileVideo(file) {
 //////Settings
 ///////////////////////
 ///////////////////////
+function showSection(section , cursor) {
+    section.classList.toggle('show');
+    cursor.classList.toggle('rotate-180');
+}
+
 
 var settings_Profile_Toggle = document.querySelector(
     "#settings-Profile-Toggle"
@@ -190,15 +195,10 @@ var settings_Profile_cursor = document.querySelector(
 if (settings_Profile_Toggle != null) {
     settings_Profile_Toggle.addEventListener("click", function (e) {
         e.preventDefault();
-        if (settings_Profile.classList.contains("hidden")) {
-            settings_Profile.classList.replace("hidden", "flex");
-            settings_Profile_cursor.classList.add("rotate-180");
-        } else {
-            settings_Profile.classList.replace("flex", "hidden");
-            settings_Profile_cursor.classList.remove("rotate-180");
-        }
+        showSection(settings_Profile , settings_Profile_cursor)
     });
 }
+
 
 var settings_Account_cursor = document.querySelector("#setting-account-cursor");
 var settings_Account_Toggle = document.querySelector("#setting-account-toggle");
@@ -207,16 +207,9 @@ var settings_Account = document.querySelector("#setting-account");
 if (settings_Account_Toggle != null) {
     settings_Account_Toggle.addEventListener('click' ,function(e) {
         e.preventDefault();
-        if (settings_Account.classList.contains("hidden")) {
-            settings_Account.classList.replace("hidden", "flex");
-            settings_Account_cursor.classList.add("rotate-180");
-        } else {
-            settings_Account.classList.replace("flex", "hidden");
-            settings_Account_cursor.classList.remove("rotate-180");
-        }
+        showSection(settings_Account , settings_Account_cursor)
     })
 }
-
 
 
 var settings_Password_cursor = document.querySelector("#setting-password-cursor");
@@ -226,12 +219,6 @@ var settings_Password = document.querySelector("#setting-password");
 if (settings_Password_Toggle != null) {
     settings_Password_Toggle.addEventListener('click' ,function(e) {
         e.preventDefault();
-        if (settings_Password.classList.contains("hidden")) {
-            settings_Password.classList.replace("hidden", "flex");
-            settings_Password_cursor.classList.add("rotate-180");
-        } else {
-            settings_Password.classList.replace("flex", "hidden");
-            settings_Password_cursor.classList.remove("rotate-180");
-        }
+        showSection(settings_Password , settings_Password_cursor)
     })
 }

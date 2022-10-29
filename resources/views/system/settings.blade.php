@@ -1,4 +1,9 @@
 <x-layout>
+  <style>
+    .show {
+      display: flex;
+    }
+  </style>
   <div class="min-h-screen">
     <x-settings-profile />
 
@@ -9,7 +14,6 @@
   
 </x-layout>
 
-@section('scripts')
 <script>
   var ProfileSelector = document.querySelector("#ProfileSelector");
   var ProfileBtn = document.querySelector("#ProfileBtn");
@@ -60,5 +64,13 @@
   })
 
 </script>
-
-@endsection
+<script>
+  var currentSearchString = window.location.search;
+  if (currentSearchString == '?section=profile') {
+    settings_Profile_Toggle.click();
+  }else if(currentSearchString == '?section=account'){
+    settings_Account_Toggle.click();
+  }else if (currentSearchString == '?section=password') {
+    settings_Password_Toggle.click();
+  }
+</script>
