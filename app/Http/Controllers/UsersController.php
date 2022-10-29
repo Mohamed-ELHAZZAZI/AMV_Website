@@ -80,23 +80,35 @@ class UsersController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required | string |min:4|max:15',
+            'name' => 'required|string|min:4|max:15',
             'gender' => 'required|string|in:Male,Female',
-            'date' => 'required| date|after:01/01/1950 | before:02/01/2015',
+            'birthday' => 'required|date|after:01/01/1950|before:02/01/2015',
             'about' => 'required|min:19|max:250'
         ]);
-    
+
         if ($validator->fails()) {
             return redirect('/settings?section=profile')->withInput()->withErrors($validator);
-        } 
+        }
 
-       $user = User::find(auth()->user()->id);
-       $user->name = $request->name;
-       $user->gender= $request->gender;
-       $user->birthday = $request->date;
-       $user->about = $request->about;
-       $user->save();
+        auth()->user()->update( $validator->validated());
 
-       return redirect('/u/@'.auth()->user()->username.'/profile');
+        return redirect('/u/@' . auth()->user()->username . '/profile');
+    }
+
+    function updateAccount(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'min:4', 'max:10', 'unique:users,username,' . auth()->user()->id],
+            'email' => 'required|email|unique:users,email,' . auth()->user()->id,
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/settings?section=account')->withInput()->withErrors($validator);
+        }
+
+        $user = auth()->user();
+        $user->update($validator->validate());
+
+        return redirect('/u/@' . $user->username . '/profile');
     }
 }

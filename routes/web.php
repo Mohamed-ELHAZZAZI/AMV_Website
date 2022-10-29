@@ -62,3 +62,6 @@ Route::get('/u/@{users}/{param}', [UsersController::class, 'show']);
 
 //user update profile
 Route::put('/user/update-profile', [UsersController::class, 'updateProfile']);
+
+//user update account
+Route::put('/user/update-account', [UsersController::class, 'updateAccount']);

@@ -83,10 +83,10 @@
           </div>
         </div>
         <span class="font-bold">Birthday</span>
-        @error('date')
+        @error('birthday')
           <p class="text-sm text-red-500">{{$message}}</p>
         @enderror
-        <input type="date" class="w-full border-gray-400 border-opacity-30 bg-transparent"  id="datefield" max="2015-01-01" min="1950-01-01" name="date" value="@if(auth()->user()->birthday){{auth()->user()->birthday}}@endif">
+        <input type="date" class="w-full border-gray-400 border-opacity-30 bg-transparent"  id="datefield" max="2015-01-01" min="1950-01-01" name="birthday" value="@if(auth()->user()->birthday){{auth()->user()->birthday}}@endif">
         <span class="font-bold">About</span>
         @error('about')
           <p class="text-sm text-red-500">{{$message}}</p>
@@ -94,13 +94,12 @@
         <textarea
           name="about"
           class="outline-none border border-gray-400 border-opacity-30 bg-transparent resize-none w-full h-36 p-2"
-        >
-My Amine Collection</textarea
+        >{{auth()->user()->about}}</textarea
         >
         <input 
           type="submit"
           value="Save Changes"
-          class="px-10 h-10 flex items-center justify-center bg-second w-full"
+          class="px-10 h-10 flex items-center justify-center bg-second w-full cursor-pointer"
           >
         </div>
       </form>
