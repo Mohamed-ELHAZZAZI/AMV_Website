@@ -5,16 +5,18 @@
     
       <div class="w-full h-72 flex flex-col gap-4">
         <span class="font-bold text-lg pb-2 border-b border-gray-400 border-opacity-30 block">{{$post->comments}} Comments</span>
+        @auth
         <form action="#" class="w-full flex gap-1 justify-center sm:gap-3">
-            <a
-            href="#"
-            class="nav-icon flex bg-UserProfile bg-cover max-w-full w-10 h-10"
-            style="background-image: url('{{asset('image/profile.jpg')}}')"
+          <a
+          href="#"
+          class="nav-icon flex bg-UserProfile bg-cover max-w-full w-10 h-10"
+          style="background-image: url('{{URL('/storage/users_profile/'. auth()->user()->image)}}')"
           >
-          </a>
-          <input type="text" class="h-10 outline-none bg-transparent border-gray-400 border-opacity-30 w-3/5 sm:w-9/12" placeholder="Add Comment..">
-          <a href="#" class="px-4 h-10 flex items-center bg-second rounded">Post</a>
-        </form>
+        </a>
+        <input type="text" class="h-10 outline-none bg-transparent border-gray-400 border-opacity-30 w-3/5 sm:w-9/12" placeholder="Add Comment..">
+        <a href="#" class="px-4 h-10 flex items-center bg-second rounded">Post</a>
+      </form>
+      @endauth
         
         
 

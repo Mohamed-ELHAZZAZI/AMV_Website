@@ -6,13 +6,15 @@
         @method('PUT')
         <a class="text-2xl md:text-3xl font-bold h-12 flex items-center" id="settings-Profile-Toggle" href="#">Profile <i class="fa-solid fa-angle-up ml-auto transform" id="settings-Profile-cursor"></i></a>
         <div class="hidden flex-col gap-2" id="settings-Profile">
-          <span class="font-bold">Avatar</span>
+          <div id="avatar_title">
+            <span class="font-bold">Avatar</span>
+
+          </div>
         <div class="w-full h-32 flex items-center gap-2 md:gap-4" id="SettingsProfile">
           <img
-            src="{{asset('/image/profile.jpg')}}"
+            src="{{URL('/storage/users_profile/'.auth()->user()->image)}}"
             alt="profile Image"
-            class="w-24 h-24 rounded-full"
-            id="Porofilemage"
+            class="w-24 h-24 rounded-full profile_image"
           />
           <a
             href="#"

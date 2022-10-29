@@ -4,6 +4,7 @@
       display: flex;
     }
   </style>
+  <link rel="stylesheet" href="{{asset('/ijaboCropTool/ijaboCropTool.min.css')}}">
   <div class="min-h-screen">
     <x-settings-profile />
 
@@ -22,24 +23,7 @@
       e.preventDefault();
     ProfileSelector.click();
   });
-
-  ProfileSelector.addEventListener("change", function() {
-    var file = this.files[0];
-    if (file) {
-      if (isFileImage(file)) {
-        var reader = new FileReader();
-        reader.addEventListener("load", function () {
-          Porofilemage.setAttribute("src", this.result);
-        });
-        reader.readAsDataURL(file);
-      }
-    }
-  });
-  function isFileImage(file) {
-    const acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
-    return file && acceptedImageTypes.includes(file["type"]);
-  }
+  
 </script>
 <script>
   var GenderListToggle = document.querySelector("#GenderListToggle");
@@ -73,4 +57,22 @@
   }else if (currentSearchString == '?section=password') {
     settings_Password_Toggle.click();
   }
+</script>
+<script src="{{asset('/ijaboCropTool/ijaboCropTool.min.js')}}"></script>
+<script> 
+  $('#ProfileSelector').ijaboCropTool({
+    preview: '.profile_image',
+    processUrl: '{{ route("crop") }}',
+    allowedExtensions: ['jpg', 'jpeg','png'],
+    withCSRF:['_token','{{ csrf_token() }}'],
+
+    onSuccess:function(message, element, status){
+      $('#profileError').remove();
+      $('#avatar_title').append(`<p class="text-sm text-second" id='profileError'>`+ message +`</p>`);
+    },
+   onError:function(message, element, status){
+      $('#profileError').remove();
+      $('#avatar_title').append(`<p class="text-sm text-red-500" id='profileError'>`+ message +`</p>`);
+   }
+  })
 </script>

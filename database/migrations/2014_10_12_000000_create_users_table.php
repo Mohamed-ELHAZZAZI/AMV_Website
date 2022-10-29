@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('about')->default('Welcom to my profile!');
             $table->enum('gender', ['Male', 'Female'])->nullable();
             $table->string('birthday')->nullable();
+            $table->string('image')->default('default-img.png');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

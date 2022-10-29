@@ -68,3 +68,6 @@ Route::put('/user/update-account', [UsersController::class, 'updateAccount']);
 
 //user update passwoed
 Route::put('/user/update-password', [UsersController::class, 'updatePassword']);
+
+//profile image ipdate
+Route::post('update-image',[UsersController::class, 'updateImage'])->name('crop');

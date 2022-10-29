@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class UsersController extends Controller
 {
@@ -134,5 +135,27 @@ class UsersController extends Controller
 
         return redirect('/settings?section=password')->withInput()->withErrors(['OldPassword' => 'The old password is incorrect!']);
         
+    }
+
+    function updateImage(Request $request)
+    {
+
+        $path = 'storage/users_profile/';
+        $file = $request->file('imageInput');
+        $new_image_name = 'UIMG'.date('Ymd').uniqid().'.jpg';
+        $upload = $file->move(public_path($path), $new_image_name);
+
+        if(!$upload){
+            return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
+        }
+
+        $userImage = auth()->user()->image;
+
+        
+        auth()->user()->image = $new_image_name;
+        auth()->user()->update();
+
+        return response()->json(['status'=>1, 'msg'=>'Image has been changed successfully.', 'name'=>$new_image_name]);
+
     }
 }

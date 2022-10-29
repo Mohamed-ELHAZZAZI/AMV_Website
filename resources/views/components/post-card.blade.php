@@ -7,7 +7,7 @@
     ----------------->
     <div class="w-full h-12 bg-dark-500 flex items-center text-sm gap-1">
       <a href="/u/{{'@' . $post->user->username}}/profile" class="flex gap-1">
-        <img src="{{asset('image/profile.jpg')}}" alt="" class="w-5 rounded-full" />
+        <img src="{{URL('/storage/users_profile/'. $post->user->image)}}" alt="" class="w-5 rounded-full" />
         {{$post->user->name}}
       </a>
       <span class="text-sm opacity-50 mr-auto">7h</span>
