@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -13,7 +13,8 @@ class UsersController extends Controller
     {
         if (in_array($param, ['saved', 'posts'])) {
             return view('users.index', [
-                'posts' => Posts::all(),
+                'posts' => Post::with('user')->where('user_id', '=', $id)->get(),
+                'owner' => User::find($id),
                 'param' => $param,
             ]);
         }
@@ -34,8 +35,8 @@ class UsersController extends Controller
     function store(Request $request)
     {
         $SignUpFields = $request->validate([
-            'name' => ['required','string', 'min:4' , 'max:15'],
-            'username' => ['required', 'min:4' , 'max:10', Rule::unique('users', 'username')],
+            'name' => ['required', 'string', 'min:4', 'max:15'],
+            'username' => ['required', 'min:4', 'max:10', Rule::unique('users', 'username')],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'confirmed', 'min:8'],
         ]);

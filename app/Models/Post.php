@@ -5,25 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Posts extends Model
+class Post extends Model
 {
     use HasFactory;
     public function scopeFilter($query, $filters)
     {
         if ($filters ?? false) {
-            $query->where('tags' , 'like' , '%'. $filters . '%');
+            $query->where('tags', 'like', '%' . $filters . '%');
         }
     }
 
     public function scopeSearch($query, $search)
     {
         if ($search ?? false) {
-            $query->where('title' , 'like' , '%'. $search . '%');
+            $query->where('title', 'like', '%' . $search . '%');
         }
     }
 
     public function user()
     {
-        return $this->hasMany(Posts::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

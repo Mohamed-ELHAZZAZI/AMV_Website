@@ -4,9 +4,9 @@
           <div class="w-full h-32 bg-dark-500 flex items-center gap-3">
             <img src="{{asset('/image/profile.jpg')}}" alt="profile Image" class="w-24 rounded-full">
             <div class="">
-              <h1 class="text-2xl font-bold">Lorem ipsum</h1>
+              <h1 class="text-2xl font-bold">{{$owner->name}}</h1>
               <div class="text-sm text-gray-400 opacity-50">
-                <span>@lorem</span>
+                <span>{{'@'.$owner->username}}</span>
                 <i class="fa-solid fa-circle text-5xs mx-1"></i>
                 <span>250 days</span>
               </div>
@@ -19,12 +19,16 @@
 
         <div class="w-full h-10 border-b border-gray-400 border-opacity-10 mb-4">
             <ul class="flex h-full">
-              <li><a href="/u/0/posts" class="flex items-center px-3 h-full border-white @if($param == 'posts') border-b-2 @else opacity-40 @endif">Posts</a></li>
-              <li><a href="/u/0/saved" class="flex items-center px-3 h-full  border-white @if($param == 'saved') border-b-2 @else opacity-40 @endif">Saved</a></li>
+              <li><a href="/u/{{$owner->id}}/posts" class="flex items-center px-3 h-full border-white @if($param == 'posts') border-b-2 @else opacity-40 @endif">Posts</a></li>
+              @auth
+                @if ((auth()->user()->id == $owner->id))
+                  <li><a href="/u/{{$owner->id}}/saved" class="flex items-center px-3 h-full  border-white @if($param == 'saved') border-b-2 @else opacity-40 @endif">Saved</a></li>
+                @endif
+              @endauth
             </ul>
           </div>
     
-         
+
 
 
 
@@ -43,14 +47,16 @@
                 </div>
              @endunless
              @endif  
-          
-          @if ($param == 'saved')
+          @auth
+              
+          @if (($param == 'saved') && (auth()->user()->id == $owner->id))
           <div id="SavedPost">
             <div class="w-full h-72 bg-black flex flex-col items-center justify-center gap-3">
               <h3 class="font-bold text-2xl ">No saved posts</h3>
             </div>
           </div>
           @endif
+          @endauth
           
 
     </div>

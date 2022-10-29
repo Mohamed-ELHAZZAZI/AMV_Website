@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\postsController;
 use App\Http\Controllers\PostsController as ControllersPostsController;
 use App\Http\Controllers\UsersController;
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
@@ -20,34 +20,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 //get all posts
-Route::get('/', [PostsController::class , 'index']);
+Route::get('/', [PostsController::class, 'index']);
 
 //get single post
-Route::get('/p/{id}' ,[PostsController::class , 'show']);
+Route::get('/p/{id}', [PostsController::class, 'show']);
 
 //get posts by tag
-Route::get('/tag/{tag}' , [PostsController::class , 'TagFilter']);
+Route::get('/tag/{tag}', [PostsController::class, 'TagFilter']);
 
 //get posts by search
-Route::get('/search/' , [PostsController::class, 'SearchFilter']);
+Route::get('/search/', [PostsController::class, 'SearchFilter']);
 
 //create post page
-Route::get('/create' , [PostsController::class , 'create'])->middleware('auth');
+Route::get('/create', [PostsController::class, 'create'])->middleware('auth');
 
 //create post page
-Route::post('/posts/store' , [PostsController::class , 'store']);
+Route::post('/posts/store', [PostsController::class, 'store']);
 
 //settings page
-Route::get('/settings', function()
-{
+Route::get('/settings', function () {
     return view('system.settings');
 })->middleware('auth');
 
 //register page
-Route::get('/register', [UsersController::class , 'register'])->middleware('guest');
+Route::get('/register', [UsersController::class, 'register'])->middleware('guest');
 
 //login page
-Route::get('/login', [UsersController::class , 'login'])->middleware('guest')->name('login');
+Route::get('/login', [UsersController::class, 'login'])->middleware('guest')->name('login');
 
 //store user (Sign UP)
 Route::post('/user/store', [UsersController::class, 'store']);
@@ -65,4 +64,3 @@ Route::post('/user/logout', [UsersController::class, 'logout'])->middleware('aut
 Route::get('/u/{users}', [UsersController::class, 'show']);
 
 Route::get('/u/{users}/{param}', [UsersController::class, 'show']);
-
