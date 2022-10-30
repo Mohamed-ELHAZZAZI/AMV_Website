@@ -10,7 +10,7 @@
           <a
           href="#"
           class="nav-icon flex bg-UserProfile bg-cover max-w-full w-10 h-10"
-          style="background-image: url('{{URL('/storage/users_profile/'. auth()->user()->image)}}')"
+          style="background-image: url('{{auth()->user()->image != '' ? URL('/storage/users_profile/'. auth()->user()->image) : URL('/image/profile.jpg')}}')"
           >
         </a>
         <input type="text" class="h-10 outline-none bg-transparent border-gray-400 border-opacity-30 w-3/5 sm:w-9/12" placeholder="Add Comment..">

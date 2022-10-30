@@ -38,7 +38,7 @@
         href="#"
         class="nav-icon flex bg-UserProfile bg-cover"
         id="profileListToggle"
-        style="background-image: url('@auth{{URL('/storage/users_profile/'. auth()->user()->image)}}@else {{URL('/image/profile.jpg')}} @endauth ')"
+        style="background-image: url('@auth{{auth()->user()->image != '' ? URL('/storage/users_profile/'. auth()->user()->image) : URL('/image/profile.jpg')}}@else {{URL('/image/profile.jpg')}} @endauth ')"
       >
       </a>
 

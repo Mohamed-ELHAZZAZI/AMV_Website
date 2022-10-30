@@ -2,7 +2,7 @@
     <div class="w-11/12 md:w-4/5 max-w-2xl mx-auto mt-3 min-h-screen">
         <div class="w-full py-1 bg-dark-500 mb-6 " >
           <div class="w-full h-32 bg-dark-500 flex items-center gap-3">
-            <img src="{{URL('/storage/users_profile/'. $user->image)}}" alt="profile Image" class="w-24 rounded-full">
+            <img src="{{$user->image != '' ? URL('/storage/users_profile/'.$user->image) : URL('/image/profile.jpg')}}" alt="profile Image" class="w-24 rounded-full">
             <div class="">
               <h1 class="text-2xl font-bold">{{$user->name}}</h1>
               <div class="text-sm text-gray-400 opacity-50">

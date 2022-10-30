@@ -12,7 +12,7 @@
           </div>
         <div class="w-full h-32 flex items-center gap-2 md:gap-4" id="SettingsProfile">
           <img
-            src="{{URL('/storage/users_profile/'.auth()->user()->image)}}"
+            src="{{auth()->user()->image != '' ? URL('/storage/users_profile/'. auth()->user()->image) : URL('/image/profile.jpg')}}"
             alt="profile Image"
             class="w-24 h-24 rounded-full profile_image"
           />
