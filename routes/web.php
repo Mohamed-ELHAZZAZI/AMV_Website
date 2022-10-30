@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\postsController;
 use App\Http\Controllers\PostsController as ControllersPostsController;
 use App\Http\Controllers\UsersController;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -74,3 +76,6 @@ Route::post('update-image',[UsersController::class, 'updateImage'])->name('crop'
 
 //delete profile image
 Route::put('/user/delete-profile', [UsersController::class, 'deleteImage']);
+
+//post comment
+Route::post('/p/comment/{post_id}', [CommentController::class, 'store']);

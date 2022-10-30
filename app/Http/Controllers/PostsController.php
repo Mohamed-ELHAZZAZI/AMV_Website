@@ -23,7 +23,7 @@ class PostsController extends Controller
     function show($id)
     {
         return view('posts.show', [
-            'post' => Post::findOrFail($id)
+            'post' => Post::with('comments')->findOrFail($id)
         ]);
     }
 

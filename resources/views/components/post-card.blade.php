@@ -51,7 +51,7 @@
       <a
         href="/p/{{$post->id}}"
         class="h-9 p-3 flex items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300"
-        ><i class="fa-solid fa-message"></i> {{$post->comments}}</a
+        ><i class="fa-solid fa-message"></i> {{count($post->comments)}}</a
       >
       <a
         href="#"
