@@ -71,3 +71,6 @@ Route::put('/user/update-password', [UsersController::class, 'updatePassword']);
 
 //profile image ipdate
 Route::post('update-image',[UsersController::class, 'updateImage'])->name('crop');
+
+//delete profile image
+Route::put('/user/delete-profile', [UsersController::class, 'deleteImage']);

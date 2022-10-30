@@ -1,40 +1,46 @@
 <div
       class="w-11/12 md:w-4/5 max-w-2xl mx-auto mt-3 py-3 bg-dark-300 px-3 md:px-5"
     >
-      <form action="/user/update-profile" method="POST" class="flex flex-col gap-2">
+      <form action="/user/delete-profile" method="POST" class="flex flex-col gap-2">
         @csrf
         @method('PUT')
         <a class="text-2xl md:text-3xl font-bold h-12 flex items-center" id="settings-Profile-Toggle" href="#">Profile <i class="fa-solid fa-angle-up ml-auto transform" id="settings-Profile-cursor"></i></a>
         <div class="hidden flex-col gap-2" id="settings-Profile">
           <div id="avatar_title">
             <span class="font-bold">Avatar</span>
-
+            @error('image')
+              <p class="text-sm text-second">{{$message}}</p> 
+            @enderror
           </div>
-        <div class="w-full h-32 flex items-center gap-2 md:gap-4" id="SettingsProfile">
+          <div class="w-full h-32 flex items-center gap-2 md:gap-4" id="SettingsProfile">
           <img
             src="{{auth()->user()->image != '' ? URL('/storage/users_profile/'. auth()->user()->image) : URL('/image/profile.jpg')}}"
             alt="profile Image"
             class="w-24 h-24 rounded-full profile_image"
-          />
-          <a
+            />
+            <a
             href="#"
             class="px-4 flex items-center justify-center bg-second h-10 rounded-lg"
             id="ProfileBtn"
             >Change</a
           >
-          <a
-            href="#"
+          <button
+            type="submit"
             class="px-4 flex items-center justify-center bg-red-500 h-10 rounded-lg"
-            >Delete</a
+            >Delete</
           >
           <input
-            type="file"
-            name="imageInput"
-            id="ProfileSelector"
-            class="absolute invisible"
-            accept="image/jpeg, image/jpg, image/png"
+          type="file"
+          name="imageInput"
+          id="ProfileSelector"
+          class="absolute invisible"
+          accept="image/jpeg, image/jpg, image/png"
           />
         </div>
+      </form>
+      <form action="/user/update-profile" method="POST" class="flex flex-col gap-2">
+        @csrf
+        @method('PUT')
         <span class="font-bold">Full name</span>
         @error('name')
           <p class="text-sm text-red-500">{{$message}}</p>

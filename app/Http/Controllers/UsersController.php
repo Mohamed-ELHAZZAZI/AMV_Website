@@ -92,7 +92,7 @@ class UsersController extends Controller
             return redirect('/settings?section=profile')->withInput()->withErrors($validator);
         }
 
-        auth()->user()->update( $validator->validated());
+        auth()->user()->update($validator->validated());
 
         return redirect('/u/@' . auth()->user()->username . '/profile');
     }
@@ -126,7 +126,7 @@ class UsersController extends Controller
         }
 
         $user = auth()->user();
-        if(Hash::check($request->OldPassword, $user->password)){
+        if (Hash::check($request->OldPassword, $user->password)) {
             $hashedPass =  bcrypt($request->password);
             $user->password = $hashedPass;
             $user->update();
@@ -134,7 +134,6 @@ class UsersController extends Controller
         }
 
         return redirect('/settings?section=password')->withInput()->withErrors(['OldPassword' => 'The old password is incorrect!']);
-        
     }
 
     function updateImage(Request $request)
@@ -142,20 +141,39 @@ class UsersController extends Controller
 
         $path = 'storage/users_profile/';
         $file = $request->file('imageInput');
-        $new_image_name = 'UIMG'.date('Ymd').uniqid().'.jpg';
+        $new_image_name = 'UIMG' . date('Ymd') . uniqid() . '.jpg';
         $upload = $file->move(public_path($path), $new_image_name);
 
-        if(!$upload){
-            return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
+        if (!File::exists(public_path($path))) {
+            File::makeDirectory(public_path($path), 0777, true);
+        }
+
+        if (!$upload) {
+            return response()->json(['status' => 0, 'msg' => 'Something went wrong, try again later']);
+        }
+
+        if (File::exists(public_path($path.auth()->user()->image))) {
+            File::delete(public_path($path.auth()->user()->image));
         }
 
         $userImage = auth()->user()->image;
 
-        
+
         auth()->user()->image = $new_image_name;
         auth()->user()->update();
 
-        return response()->json(['status'=>1, 'msg'=>'Image has been changed successfully.', 'name'=>$new_image_name]);
+        return response()->json(['status' => 1, 'msg' => 'Image has been changed successfully.', 'name' => $new_image_name]);
+    }
 
+    function deleteImage()
+    {
+        $path = 'storage/users_profile/';
+        if (File::exists(public_path($path.auth()->user()->image))) {
+            File::delete(public_path($path.auth()->user()->image));
+        }
+
+        auth()->user()->image = '';
+        auth()->user()->update();
+        return redirect('/settings?section=profile')->withInput()->withErrors(['image' => 'Profile image deleted!']);
     }
 }
