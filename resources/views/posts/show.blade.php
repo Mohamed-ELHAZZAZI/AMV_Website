@@ -45,8 +45,9 @@
             </div>
     </div>
   </div>
+  @auth
+      
   <script>
-    console.log($('#cmnt_prf_img').css('background-image'));
     function setCMNT(cmnt) {
       return `<div class="w-full  flex items-start gap-3">
             <a class="nav-icon flex bg-UserProfile bg-cover max-w-full w-10 h-10" id="cmnt_prf_img" style="background-image: url('{{auth()->user()->image != '' ? URL('/storage/users_profile/'. auth()->user()->image) : URL('/image/profile.jpg')}}')" ></a>
@@ -101,4 +102,7 @@
             })
     })
   </script>
+  @endauth
+
+  
 </x-layout>

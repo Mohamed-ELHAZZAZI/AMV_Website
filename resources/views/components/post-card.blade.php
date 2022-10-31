@@ -39,19 +39,23 @@
     ----------------->
     <div class="w-full mt-2 flex items-center gap-3">
       <a
-        href="#"
-        class="h-9 p-3 flex items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300"
-        ><i class="fa-sharp fa-solid fa-arrow-up"></i> {{$post->upvotes}}</a
+        onclick="vote(this)"
+        data-vote= 'upvote'
+        data-id = "{{$post->id}}"
+        class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn"
+        ><i class="fa-sharp fa-solid fa-arrow-up"></i> <span class="up_value">{{$post->upvotes}}</span></a
       >
       <a
-        href="#"
-        class="h-9 p-3 flex items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300"
-        ><i class="fa-sharp fa-solid fa-arrow-down"></i>{{$post->downvotes}}</a
+        onclick="vote(this)"
+        data-vote= 'downvote'
+        data-id ="{{$post->id}}"
+        class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn"
+        ><i class="fa-sharp fa-solid fa-arrow-down"></i><span class="up_value">{{$post->downvotes}}</span></a
       >
       <a
         href="/p/{{$post->id}}"
         class="h-9 p-3 flex items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300"
-        ><i class="fa-solid fa-message"></i> {{count($post->comments)}}</a
+        ><i class="fa-solid fa-message"></i> <span>{{count($post->comments)}}</span></a
       >
       <a
         href="#"

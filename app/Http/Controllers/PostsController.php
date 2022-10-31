@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Post;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
@@ -97,5 +98,48 @@ class PostsController extends Controller
                 'message' => 'Upload incomplete!',
             ]);
         }
+    }
+
+    function vote($post_id , $vote,Request $request)
+    {
+        
+        $post = Post::find($post_id);
+        $other_select = false;
+        if ($post) {
+            $voteExists = Vote::where('user_id', auth()->user()->id )->where('post_id' , '=' , $post_id)->first();
+            if ($voteExists) {
+                if ($voteExists->status === $vote) {
+                    $voteExists->delete();
+                    $post->upvotes = count(Vote::where('status' , "=", 'upvote')->get());
+                    $post->downvotes = count(Vote::where('status' , "=", 'downvote')->get());
+                    $post->save();
+                    return response()->json([
+                        'status' => 502,
+                        'vote' => $vote,
+                    ]);
+                }
+                $voteExists->delete();
+                $other_select = true;
+            }
+
+            Vote::create([
+                'post_id' => $post_id,
+                'user_id' => auth()->user()->id,
+                'status' => $vote
+            ]);
+
+            $post->upvotes = count(Vote::where('status' , "=", 'upvote')->get());
+            $post->downvotes = count(Vote::where('status' , "=", 'downvote')->get());
+            $post->save();
+
+           return response()->json([
+            'status' => 200,
+            'other_selected' => $other_select,
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Error,try again later',
+        ]);
     }
 }

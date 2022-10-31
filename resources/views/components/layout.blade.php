@@ -13,6 +13,12 @@
     <title>Document</title>
     <script src="{{asset('/js/jquery.js')}}"></script>
   </head>
+    <style>
+      .clicked {
+        border-color: #3b82f6;
+        color: #3b82f6
+      }
+    </style>
   <body class="bg-dark-500 text-gray-200 relative min-h-screen">
     <nav
       class="h-14 w-ful border-b border-gray-400 border-opacity-50 flex gap-3 items-center px-2 sm:px-6 sm:gap-2"
@@ -181,6 +187,54 @@
 
     <script src="{{asset('js/main.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
-    @yield('scripts')
+    <script>
+      function vote(a) {
+        var post_id = $(a).data('id');
+        var vote = $(a).attr('data-vote');
+        var url = '/p/'+ post_id + '/vote/'
+        if (vote === 'upvote') {
+          otherBTN = $(a).nextAll('.votingBtn');
+        }else if (vote == 'downvote') {
+          otherBTN = $(a).prevAll('.votingBtn');  
+        }
+        $.ajaxSetup({
+            headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+  
+        $.ajax({
+          url: url + vote,
+          method: 'POST' ,
+          dataType: "json",
+          contentType: false,
+          processData: false,
+  
+          success: function (response) {
+            if (response.status == 404) {
+  
+              alert('Error, try again later');
+  
+            }else if (response.status == 502) {
+  
+              $(a).removeClass('clicked')
+              var value = parseInt($(a).text()) - 1
+              $(a).children('.up_value').html(value)
+  
+            } else {
+              $(a).addClass('clicked')
+              var value = parseInt($(a).text()) + 1
+              $(a).children('.up_value').html(value)
+              if(response.other_selected) {
+                var value = parseInt(otherBTN.text()) - 1
+                otherBTN.children('.up_value').html(value)
+              }
+              otherBTN.removeClass('clicked');
+            }
+          },
+      })
+      }
+    </script>
+  
   </body>
 </html>
