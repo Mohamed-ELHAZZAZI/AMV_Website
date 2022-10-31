@@ -1,6 +1,5 @@
 @props(['post'])
 
-
 <div class="w-full pb-5 bg-dark-500 border-t border-opacity-40 POSTS">
     <!--------------
       Profile section
@@ -42,14 +41,22 @@
         onclick="vote(this)"
         data-vote= 'upvote'
         data-id = "{{$post->id}}"
-        class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn"
+        class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn
+        @auth
+        @foreach($post->votes as $vote) @if(($vote->user_id == auth()->user()->id) && ($vote->post_id == $post->id) && ($vote->status === 'upvote' )) clicked @endif @endforeach
+        @endauth
+        "
         ><i class="fa-sharp fa-solid fa-arrow-up"></i> <span class="up_value">{{$post->upvotes}}</span></a
       >
       <a
         onclick="vote(this)"
         data-vote= 'downvote'
         data-id ="{{$post->id}}"
-        class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn"
+        class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn
+        @auth
+        @foreach($post->votes as $vote) @if(($vote->user_id == auth()->user()->id) && ($vote->post_id == $post->id) && ($vote->status === 'downvote' )) clicked @endif @endforeach
+        @endauth
+        "
         ><i class="fa-sharp fa-solid fa-arrow-down"></i><span class="up_value">{{$post->downvotes}}</span></a
       >
       <a

@@ -16,7 +16,7 @@ class PostsController extends Controller
     function index()
     {
         return view('posts.index', [
-            'posts' => Post::latest()->get(),
+            'posts' => Post::with('votes')->latest()->get(),
         ]);
     }
 
@@ -110,8 +110,8 @@ class PostsController extends Controller
             if ($voteExists) {
                 if ($voteExists->status === $vote) {
                     $voteExists->delete();
-                    $post->upvotes = count(Vote::where('status' , "=", 'upvote')->get());
-                    $post->downvotes = count(Vote::where('status' , "=", 'downvote')->get());
+                    $post->upvotes = count(Vote::where('status' , "upvote")->where('post_id' ,$post->id)->get());
+                    $post->downvotes = count(Vote::where('status' , 'downvote')->where('post_id' ,$post->id)->get());
                     $post->save();
                     return response()->json([
                         'status' => 502,
@@ -128,8 +128,8 @@ class PostsController extends Controller
                 'status' => $vote
             ]);
 
-            $post->upvotes = count(Vote::where('status' , "=", 'upvote')->get());
-            $post->downvotes = count(Vote::where('status' , "=", 'downvote')->get());
+            $post->upvotes = count(Vote::where('status' ,'upvote')->where('post_id' ,$post->id)->get());
+            $post->downvotes = count(Vote::where('status' ,'downvote')->where('post_id' ,$post->id)->get());
             $post->save();
 
            return response()->json([
