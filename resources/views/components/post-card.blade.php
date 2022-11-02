@@ -17,6 +17,25 @@
       >
         <i class="fa-solid fa-bookmark"></i>
       </button>
+      <div class="relative">
+        <button
+        class="hover:bg-opacity-10 hover:bg-white rounded-full text-xs w-6 h-6 flex items-center justify-center"
+      >
+        <i class="fa-solid fa-ellipsis-vertical text-lg"></i>
+      </button>
+      <div class="absolute w-36 py-1 bg-dark-400 right-2  z-30 rounded">
+        <ul class="w-full h-full flex flex-col">
+          <li class="w-full h-10 flex items-center"><a  class="h-10 w-full flex  px-2 items-center hover:bg-dark-300" href="#">Report Post</a></li>
+          @auth
+              
+          @if ($post->user_id == auth()->user()->id)
+          <li class="w-full h-10 flex items-center"><a  class="h-10 w-full flex px-2 items-center hover:bg-dark-300" href="#">Modify</a></li>
+          <li class="w-full h-10 flex items-center"><a  class="h-10 w-full flex px-2 items-center hover:bg-dark-300" href="#">Delete</a></li>
+          @endif
+          @endauth
+        </ul>
+      </div>
+      </div>
     </div>
     <!--------------
       discreption section
