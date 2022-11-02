@@ -10,12 +10,13 @@
         {{$post->user->name}}
       </a>
       <span class="text-sm opacity-50 mr-auto">7h</span>
-      <a
-        href="#"
+      <button
+        data-save="{{$post->id}}"
+        onclick="save(this)"
         class="hover:bg-opacity-10 hover:bg-white rounded-full text-xs w-6 h-6 flex items-center justify-center"
       >
         <i class="fa-solid fa-bookmark"></i>
-      </a>
+      </button>
     </div>
     <!--------------
       discreption section

@@ -28,4 +28,38 @@
         @endunless
     </div>  
     
+    <script>
+        function save(e) {
+            var post_id = $(e).data('save');
+            var url = '/p/save/' +post_id
+            var first = $(e).children().first();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+
+                url: url,
+                method: 'POST' ,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                
+                success: function(response) {
+                    if (response.status == 200) {
+                        
+                        first.replaceWith('<i class="fa-solid fa-check text-second text-lg"></i>')
+                    }else if(response.status == 250) {
+                        first.replaceWith('<i class="fa-solid fa-bookmark"></i>')
+                    }else {
+                        alert(response.message)
+                    }
+                }
+            })
+        }
+    </script>
+
 </x-layout>

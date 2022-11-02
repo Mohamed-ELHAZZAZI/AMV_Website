@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Vote;
+use App\Models\Save;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
@@ -140,6 +141,40 @@ class PostsController extends Controller
         return response()->json([
             'status' => 404,
             'message' => 'Error,try again later',
+        ]);
+    }
+
+    function save($post_id)
+    {
+        $post = Post::find($post_id);
+        
+        if ($post) {
+
+            $saveExists = Save::where('post_id', $post_id)->where('user_id', auth()->user()->id)->first();
+
+            if (!$saveExists) {
+
+                Save::create([
+                    'post_id' => $post_id,
+                    'user_id' => auth()->user()->id,
+                ]);
+                
+                return response()->json([
+                    'status' => 200,
+                    'message' => $post_id
+                ]);
+            }
+
+            $saveExists->delete();
+
+            return response()->json([
+                'status' => 250,
+                'message' => 'deleted'
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Error try again later',
         ]);
     }
 }

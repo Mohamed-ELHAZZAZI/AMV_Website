@@ -80,5 +80,8 @@ Route::put('/user/delete-profile', [UsersController::class, 'deleteImage']);
 //post comment
 Route::post('/p/comment/{post_id}', [CommentController::class, 'store']);
 
-//post 
+//post vote
 Route::post('/p/{post_id}/vote/{vote}', [PostsController::class, 'vote'])->middleware('auth');
+
+//post save
+Route::post('/p/save/{post_id}', [PostsController::class, 'save']);
