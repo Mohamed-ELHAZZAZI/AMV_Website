@@ -30,7 +30,7 @@
               
           @if ($post->user_id == auth()->user()->id)
           <li class="w-full h-10 flex items-center"><a  class="h-10 w-full flex px-2 items-center hover:bg-dark-300" href="#">Modify</a></li>
-          <li class="w-full h-10 flex items-center"><a  class="h-10 w-full flex px-2 items-center hover:bg-dark-300" href="#">Delete</a></li>
+          <li class="w-full h-10 flex items-center"><a  class="h-10 w-full flex px-2 items-center hover:bg-dark-300 cursor-pointer" onclick="DelPost(this)" data-id="{{$post->id}}">Delete</a></li>
           @endif
           @endauth
         </ul>

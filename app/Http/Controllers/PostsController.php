@@ -177,4 +177,23 @@ class PostsController extends Controller
             'message' => 'Error try again later',
         ]);
     }
+
+    function delete($post_id)
+    {
+        $post = Post::find($post_id);
+
+        if ($post) {
+            if ($post->user_id == auth()->user()->id) {
+                $post->delete();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Post Deleted',
+                ]);
+            }
+        }
+        return response()->json([
+            'status' => 400,
+            'message' => 'Error, try again later.',
+        ]);
+    }
 }

@@ -85,3 +85,6 @@ Route::post('/p/{post_id}/vote/{vote}', [PostsController::class, 'vote'])->middl
 
 //post save
 Route::post('/p/save/{post_id}', [PostsController::class, 'save']);
+
+//post delet 
+Route::delete('/p/delete/{post_id}', [PostsController::class, 'delete'])->middleware('auth');
