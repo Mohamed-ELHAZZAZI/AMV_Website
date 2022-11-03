@@ -61,5 +61,9 @@
             })
         }
     </script>
-
+    <script>
+        $('.ShowMore').on('click', function(e) {
+            $(this).next().toggleClass('hidden')
+        })
+    </script>
 </x-layout>
