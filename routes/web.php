@@ -88,3 +88,6 @@ Route::post('/p/save/{post_id}', [PostsController::class, 'save']);
 
 //post delet 
 Route::delete('/p/delete/{post_id}', [PostsController::class, 'delete'])->middleware('auth');
+
+//post modify
+Route::get('p/modify/{post_id}', [PostsController::class, 'modify']);

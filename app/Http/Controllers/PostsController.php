@@ -196,4 +196,17 @@ class PostsController extends Controller
             'message' => 'Error, try again later.',
         ]);
     }
+
+    function modify($post_id)
+    {
+        $post = Post::find($post_id);
+
+        if ($post && $post->user_id == auth()->user()->id) {
+            return view('posts.modify', [
+                'post' => $post,
+            ]);
+        }
+
+        return abort(404);
+    }
 }
