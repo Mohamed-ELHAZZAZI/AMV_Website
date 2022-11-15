@@ -36,4 +36,9 @@ class Post extends Model
     {
         return $this->hasMany(Vote::class, 'post_id', 'id');
     }
+
+    public function saves()
+    {
+        return $this->hasMany(Save::class);
+    }
 }

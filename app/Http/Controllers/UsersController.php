@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,14 @@ class UsersController extends Controller
     {
 
         if (in_array($param, ['saved', 'profile'])) {
+            if ($param == 'profile') {
+                $posts = User::with('posts')->where('username', $username)->first();
+            }else {
+                $posts = User::with('saves')->where('id', 1)->get();
+                // dd($posts->toArray());
+            }
             return view('users.index', [
-                'user' => User::with('posts')->where('username', '=', $username)->first(),
+                'user' => $posts,
                 'param' => $param,
             ]);
         }

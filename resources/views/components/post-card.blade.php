@@ -15,8 +15,17 @@
         onclick="save(this)"
         class="hover:bg-opacity-10 hover:bg-white rounded-full text-xs w-6 h-6 flex items-center justify-center"
       >
-        <i class="fa-solid fa-bookmark"></i>
-      </button>
+      @auth
+          
+        @if ($post->saves->where('user_id' , auth()->user()->id)->first()?->post_id == $post->id)
+          <i class="fa-solid fa-check text-second text-lg"></i>
+        @else
+          <i class="fa-solid fa-bookmark"></i>
+        @endif
+      @else
+      <i class="fa-solid fa-bookmark"></i>
+      @endauth
+    </button>
       <div class="relative">
         <button
         class="hover:bg-opacity-10 hover:bg-white rounded-full text-xs w-6 h-6 flex items-center justify-center ShowMore"
@@ -63,7 +72,7 @@
         data-id = "{{$post->id}}"
         class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn
         @auth
-        @foreach($post->votes as $vote) @if(($vote->user_id == auth()->user()->id) && ($vote->post_id == $post->id) && ($vote->status === 'upvote' )) clicked @endif @endforeach
+        @if($post->votes()->where('user_id' , auth()->user()->id)->first()?->status == 'upvote') clicked @endif
         @endauth
         "
         ><i class="fa-sharp fa-solid fa-arrow-up"></i> <span class="up_value">{{$post->upvotes}}</span></a
@@ -74,7 +83,7 @@
         data-id ="{{$post->id}}"
         class="h-9 p-3 flex cursor-pointer items-center justify-center border border-gray-400 border-opacity-40 rounded gap-2 hover:bg-dark-300 votingBtn
         @auth
-        @foreach($post->votes as $vote) @if(($vote->user_id == auth()->user()->id) && ($vote->post_id == $post->id) && ($vote->status === 'downvote' )) clicked @endif @endforeach
+        @if($post->votes()->where('user_id' , auth()->user()->id)->first()?->status == 'downvote') clicked @endif
         @endauth
         "
         ><i class="fa-sharp fa-solid fa-arrow-down"></i><span class="up_value">{{$post->downvotes}}</span></a

@@ -16,8 +16,9 @@ class PostsController extends Controller
     //show all posts
     function index()
     {
+        $posts = Post::with('saves')->latest()->get();
         return view('posts.index', [
-            'posts' => Post::with('votes')->latest()->get(),
+            'posts' => $posts,
         ]);
     }
 
@@ -107,7 +108,7 @@ class PostsController extends Controller
         $post = Post::find($post_id);
         $other_select = false;
         if ($post) {
-            $voteExists = Vote::where('user_id', auth()->user()->id )->where('post_id' , '=' , $post_id)->first();
+            $voteExists = Vote::where('user_id', auth()->user()->id )->where('post_id' , $post_id)->first();
             if ($voteExists) {
                 if ($voteExists->status === $vote) {
                     $voteExists->delete();
@@ -180,21 +181,13 @@ class PostsController extends Controller
 
     function delete($post_id)
     {
-        $post = Post::find($post_id);
-
-        if ($post) {
-            if ($post->user_id == auth()->user()->id) {
-                $post->delete();
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Post Deleted',
-                ]);
-            }
-        }
+        $post = auth()->user()->posts()->findOrFail($post_id);
+        $post->delete();
         return response()->json([
-            'status' => 400,
-            'message' => 'Error, try again later.',
+            'status' => 200,
+            'message' => 'Post Deleted',
         ]);
+
     }
 
     function modify($post_id)

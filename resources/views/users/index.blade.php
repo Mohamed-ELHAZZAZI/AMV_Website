@@ -50,11 +50,19 @@
           @auth
               
           @if (($param == 'saved') && (auth()->user()->id == $user->id))
-          <div id="SavedPost">
-            <div class="w-full h-72 bg-black flex flex-col items-center justify-center gap-3">
-              <h3 class="font-bold text-2xl ">No saved posts</h3>
-            </div>
-          </div>
+          @unless (count($user->posts) == 0)    
+                @foreach ($user->posts as $post)
+                    <x-post-card :post="$post" />
+                @endforeach
+            @else
+                <div id="SavedPost">
+                 <div class="w-full h-72 bg-black flex flex-col items-center justify-center gap-3">
+                  <h3 class="font-bold text-2xl ">No Posts</h3>
+                  <p class="opacity-30 text-sm tracking-wider">Let's make something creative for fun!</p>
+                  <a href="/create" class="bg-second h-10 flex items-center justify-center w-24 rounded-lg gap-2"><i class="fa-solid fa-plus text-sm"></i> Post</a>
+                </div>
+                </div>
+             @endunless
           @endif
           @endauth
           

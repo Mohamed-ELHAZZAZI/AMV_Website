@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Save extends Model
 {
     use HasFactory;
+    
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'post_id', 'id');
+    }
 }
