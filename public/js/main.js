@@ -108,6 +108,7 @@ var PostImage = document.querySelector("#FileImage");
 var PostVideo = document.querySelector("#FileVideo");
 
 var RestoreMedia = document.querySelector("#RestoreMedia");
+var ModifyMediaSection = document.querySelector('#ModifyMediaSection')
 
 if (PostFileInput != null) {
     PostFileInput.addEventListener("change", function () {
@@ -138,21 +139,33 @@ if (PostFileInput != null) {
         }
     });
 
+}
+
+var defaultFile = document.querySelector('#defaultFile')
+
+if (RestoreMedia != null) {
     //restaure uploading input and removing the media
 
     RestoreMedia.addEventListener("click", (e) => {
         e.preventDefault();
+        if (ModifyMediaSection != null && $('#defaultFile').hasClass('hidden')) {
+            defaultFile.classList.remove('hidden')
+            ModifyMediaSection.remove();
+            RestoreMedia.classList.replace('flex', 'hidden')
 
-        FileImage.setAttribute("src", "");
-        FileVideo.setAttribute("src", "");
+        }else {
 
-        FileImage.classList.add("hidden");
-        FileVideo.classList.add("hidden");
-
-        uploadFile.classList.remove("hidden");
-        PostFileInput.value = "";
-
-        RestoreMedia.classList.replace("flex", "hidden");
+            FileImage.setAttribute("src", "");
+            FileVideo.setAttribute("src", "");
+    
+            FileImage.classList.add("hidden");
+            FileVideo.classList.add("hidden");
+    
+            uploadFile.classList.remove("hidden");
+            PostFileInput.value = "";
+    
+            RestoreMedia.classList.replace("flex", "hidden");
+        }
     });
 }
 

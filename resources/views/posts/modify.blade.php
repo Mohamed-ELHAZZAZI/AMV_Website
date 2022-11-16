@@ -48,34 +48,39 @@
                 >
                   <a
                     href="#"
-                    class="w-10 h-10 bg-second items-center justify-center text-lg absolute top-2 right-4 rounded-full z-10 hidden"
+                    class="w-10 h-10 bg-second items-center justify-center text-lg absolute top-2 right-4 rounded-full z-10 flex"
                     id="RestoreMedia"
                     ><i class="fa-solid fa-x"></i
                   ></a>
-                  <img src="" alt="" class="mx-auto hidden" id="FileImage" />
-                  <video class="mx-auto hidden" controls id="FileVideo">
-                    <source src="" id="VideoSource" />
-                  </video>
-                  <div
-                    class="w-full min-h-full flex items-center justify-center gap-5 flex-col py-5"
-                    id="uploadFile"
-                  >
-                    <i class="fa-solid fa-image text-9xl"></i>
-                    <span>Choose image or video to upload</span>
-                    <button
-                      class="w-28 h-10 bg-second rounded"
-                      id="FileInputBtn"
-                      type="button"
+                  <div id="defaultFile" class="hidden">
+                      <img src="" alt="" class="mx-auto hidden" id="FileImage" />
+                      <video class="mx-auto hidden" controls id="FileVideo">
+                      <source src="" id="VideoSource" />
+                    </video>
+                    <div
+                      class="w-full min-h-full flex items-center justify-center gap-5 flex-col py-5"
+                      id="uploadFile"
                     >
-                      Choose file
-                    </button>
-                    <input
-                      type="file"
-                      name="media"
-                      id="PostFileInput"
-                      class="invisible absolute"
-                      accept="image/jpeg, image/jpg, image/png, image/gif, video/mp4, video/webm, video/quicktime, video/x-m4v"
-                    />
+                      <i class="fa-solid fa-image text-9xl"></i>
+                      <span>Choose image or video to upload</span>
+                      <button
+                        class="w-28 h-10 bg-second rounded"
+                        id="FileInputBtn"
+                        type="button"
+                      >
+                        Choose file
+                      </button>
+                      <input
+                        type="file"
+                        name="media"
+                        id="PostFileInput"
+                        class="invisible absolute"
+                        accept="image/jpeg, image/jpg, image/png, image/gif, video/mp4, video/webm, video/quicktime, video/x-m4v"
+                      />
+                    </div>
+                  </div>
+                  <div id="ModifyMediaSection">
+                    <x-post-media-section :media='$post->media' />
                   </div>
                 </div>
                 <div
@@ -122,7 +127,7 @@
     
                 if ($('#PostTitle').val().length == 0) {
                   return setError('The title field is required.')
-                }else if($('#PostTitle').val().length > 280) {
+                }else if($('#PostTitle').val().length > 280 ) {
                   return setError('The title must not be greater than 280 characters.')
                 }
     
@@ -243,6 +248,10 @@
           </script>
       
           <script>
+            $(document).ready(function (e) {
+              var TitleValue = $("#PostTitle").val().length + 1;
+              $('#TitleMaxLength').text(280 - TitleValue)
+            })
             $("#PostTitle").keydown(function (e) {
               var TitleValue = $(this).val().length + 1;
               $('#TitleMaxLength').text(280 - TitleValue)
