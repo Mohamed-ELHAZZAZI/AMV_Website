@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Post;
-use App\Models\Vote;
 use App\Models\Save;
+use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -60,7 +60,7 @@ class PostsController extends Controller
         $validator = Validator::make($res->all(), [
             'title' => 'required | max: 280',
             'tags' => 'required',
-            'media' => 'required'
+            'media' => 'required | mimes:jpg,jpeg,gif,png,mp4,webm,quicktime,x-m4v'
         ]);
 
         if ($validator->fails()) {
@@ -73,12 +73,6 @@ class PostsController extends Controller
             $media = $res->file('media');
             $file_extention = $media->getClientOriginalExtension();
             $media_Name = date('mdYHis') . uniqid() . '.' . $file_extention;
-            if (!in_array($file_extention, ['jpg', 'jpeg', 'gif', 'png', 'mp4', 'webm', 'quicktime', 'x-m4v'])) {
-                return response()->json([
-                    'status' => 400,
-                    'errors' => ["Invalide file format"],
-                ]);
-            }
             $upload = $media->storeAs($path, $media_Name, 'public');
 
             if ($upload) {
@@ -192,14 +186,57 @@ class PostsController extends Controller
 
     function modify($post_id)
     {
-        $post = Post::find($post_id);
+        $post = Post::where('user_id', auth()->user()->id)->findOrFail($post_id);
 
-        if ($post && $post->user_id == auth()->user()->id) {
             return view('posts.modify', [
                 'post' => $post,
             ]);
+    }
+
+    function update($post_id , Request $res)
+    {
+        $post = Post::where('user_id', auth()->user()->id)->findOrFail($post_id);
+          
+        $validator = Validator::make($res->all(), [
+            'title' => 'required | max: 280',
+            'tags' => 'required',
+            'media' => "nullable | mimes:jpg,jpeg,gif,png,mp4,webm,quicktime,x-m4v"
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
         }
 
-        return abort(404);
+        if ($res->hasFile('media')) {
+            
+            $path = 'media/';
+            $media = $res->file('media');
+            $file_extention = $media->getClientOriginalExtension();
+            $media_Name = date('mdYHis') . uniqid() . '.' . $file_extention;
+
+            $media->storeAs($path, $media_Name, 'public');
+            
+            $oldMedia = "storage/media/".$post->media;
+            $post->media = $media_Name;
+            $file = public_path($oldMedia);
+            if (File::isFile($file)) {
+                File::delete($file);
+            }
+        }
+        
+        $post->title = $res->input('title');
+        $post->tags = $res->input('tags');
+        $post->update();
+        
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Post added successfully',
+            'id' => $post_id
+        ]);
+
     }
 }

@@ -121,6 +121,10 @@
               return setError('Only 5 tags are acceptable');
             }
 
+            if (tagsARRAY.length == 0) {
+                return setError('The tags field is required.');
+            }
+
             if (!$('#PostFileInput').val().match(/\.(jpg|jpeg|gif|png|mp4|webm|quicktime|x-m4v)$/)){
               return setError('Invalide file format');
             } 
@@ -157,7 +161,6 @@
                     setError(error_value);
                   })
                 }else {
-                  setError(response.message);
                   window.location.href = '/';
                 }
               },

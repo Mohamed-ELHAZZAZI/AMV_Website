@@ -26,7 +26,8 @@
             </div>
             <div class="w-full gap-5 flex flex-col">
               <h1 class="font-bold text-4xl">Upload Post</h1>
-              <form action="/posts/store" id="postForm" method="POST" class="w-full h-full flex flex-col gap-5" enctype="multipart/form-data">
+              <form action="/p/update/{{$post->id}}" id="postForm" method="POST" class="w-full h-full flex flex-col gap-5" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="w-full gap-3 flex flex-col" id="formContent">
                   <ul id="PostErrors"></ul>
@@ -121,6 +122,8 @@
             $(document).ready(function() {
               var formContent = $('#formContent');
               var submitionBTN = $('#submit');
+              
+
               $('#postForm').on('submit', function(e) {
                 e.preventDefault()
                 document.getElementById("PostErrors").innerHTML = "";
@@ -134,10 +137,11 @@
                 if (tagsARRAY.length > 5) {
                   return setError('Only 5 tags are acceptable');
                 }
-    
-                if (!$('#PostFileInput').val().match(/\.(jpg|jpeg|gif|png|mp4|webm|quicktime|x-m4v)$/)){
-                  return setError('Invalide file format');
-                } 
+
+                if (tagsARRAY.length == 0) {
+                  return setError('The tags field is required.');
+                }
+                
     
                 $.ajaxSetup({
                     headers: {
@@ -146,37 +150,37 @@
                 });
     
                 var form = this;
-                
-                // $.ajax({
-                //   url:$(form).attr('action'),
-                //   method: $(form).attr('method'),
-                //   data: new FormData(form),
-                //   dataType: "json",
-                //   contentType: false,
-                //   processData: false,
-                //   beforeSend: function () {
+              
+
+                $.ajax({
+                  url:$(form).attr('action'),
+                  method: $(form).attr('method'),
+                  data: new FormData(form),
+                  dataType: "json",
+                  contentType: false,
+                  processData: false,
+                  beforeSend: function () {
     
-                //     formContent.addClass('blur-sm -z-50');
-                //     submitionBTN.val('publishing in a sec ...')
+                    formContent.addClass('blur-sm -z-50');
+                    submitionBTN.val('publishing in a sec ...')
     
-                //   },
-                //   success: function (response) {
-                //     if (response.status == 400) {
+                  },
+                  success: function (response) {
+                    if (response.status == 400) {
     
-                //       formContent.removeClass('blur-sm -z-50');
-                //       submitionBTN.val('Submit post')
+                      formContent.removeClass('blur-sm -z-50');
+                      submitionBTN.val('Submit post')
                       
                       
-                //       $.each(response.errors, function (key, error_value) {
-                //         setError(error_value);
-                //       })
-                //     }else {
-                //       setError(response.message);
-                //       window.location.href = '/';
-                //     }
-                //   },
+                      $.each(response.errors, function (key, error_value) {
+                        setError(error_value);
+                      })
+                    }else {
+                      window.location.href = '/p/' + response.id;
+                    }
+                  },
                   
-                // })
+                })
     
               })
             })

@@ -91,3 +91,6 @@ Route::delete('/p/delete/{post_id}', [PostsController::class, 'delete'])->middle
 
 //post modify
 Route::get('p/modify/{post_id}', [PostsController::class, 'modify']);
+
+//update modified posts
+Route::put('p/update/{post_id}', [PostsController::class, 'update']);
