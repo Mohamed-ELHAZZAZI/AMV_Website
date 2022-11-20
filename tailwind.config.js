@@ -24,11 +24,15 @@ module.exports = {
             },
             fontSize: {
                 "5xs": "4px",
+                'xxs': '11px'
             },
             spacing: {
                 "133px": "133px",
             },
         },
+        screens: {
+            'mini-sm': '400px',
+          },
     },
     plugins: [
         require("@tailwindcss/forms"),

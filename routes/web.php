@@ -94,3 +94,7 @@ Route::get('p/modify/{post_id}', [PostsController::class, 'modify']);
 
 //update modified posts
 Route::put('p/update/{post_id}', [PostsController::class, 'update']);
+
+//anime list redirector
+Route::get('/anime-list', 'App\Http\Controllers\AnimesController@index');
+

@@ -134,13 +134,18 @@
     </nav>
 
     <div
-      class="w-64  py-3 bg-dark-300 absolute right-0 bottom-0 top-14 z-30 hidden"
+      class="w-64  py-3 bg-dark-300 absolute right-0 bottom-0 top-14 z-30 "
       id="NavList"
     >
       <ul>
         <li class="hover:bg-dark-400 px-5">
           <a href="/" class="w-full h-10 flex items-center gap-2"
             ><i class="fa-solid fa-house"></i> Home</a
+          >
+        </li>
+        <li class="hover:bg-dark-400 px-5">
+          <a href="/anime-list" class="w-full h-10 flex items-center gap-2"
+            ><i class="fa-solid fa-list"></i> Anime list</a
           >
         </li>
         <li class="hover:bg-dark-400 px-5">
