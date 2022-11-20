@@ -50,7 +50,7 @@
 
       <a
         href="/create"
-        class="p-1.5 rounded-full box-content flex items-center justify-evenly bg-second text-sm font-bold fixed bottom-10 right-6 w-12 h-12 z-20 sm:w-16 sm:h-6 sm:relative sm:bottom-auto sm:right-auto"
+        class="p-1.5 rounded-full box-content flex items-center justify-evenly bg-second text-sm font-bold fixed bottom-10 right-6 w-12 h-12 z-20 sm:bg-second sm:w-16 sm:h-6 sm:relative sm:bottom-auto sm:right-auto"
       >
         <i class="fa-solid fa-plus"></i>
         <span class="hidden sm:block">Post</span>
