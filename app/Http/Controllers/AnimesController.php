@@ -10,7 +10,7 @@ class AnimesController extends Controller
     function index() {
 
         return view('animes.index', [
-            'animes' => Anime::all()->slice(0, 2)
+            'animes' => Anime::all()->slice(0, 20)
         ]);
     }
 }
