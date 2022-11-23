@@ -10,12 +10,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
     <link rel="stylesheet" href="{{asset('css/app.css')}}" />
+    <link rel="stylesheet" href="{{asset('style/style.css')}}" />
     <title>Document</title>
     <script src="{{asset('/js/jquery.js')}}"></script>
   </head>
-  <body class="bg-dark-500 text-gray-200 relative min-h-screen">
+  <body class="relative min-h-screen text-gray-200 bg-dark-500">
     <nav
-      class="h-14 w-ful border-b border-gray-400 border-opacity-50 flex gap-3 items-center px-2 sm:px-6 sm:gap-2"
+      class="flex items-center gap-3 px-2 border-b border-gray-400 border-opacity-50 h-14 w-ful sm:px-6 sm:gap-2"
     >
       <a href="/" class="w-16 mr-auto">
         <img src="{{asset('image/logo.svg')}}" alt="logo" />
@@ -26,7 +27,7 @@
       </a>
       @auth
           
-      <a href="#" class="nav-icon hidden sm:flex">
+      <a href="#" class="hidden nav-icon sm:flex">
         <i class="fa-solid fa-bell"></i>
       </a>
       
@@ -36,7 +37,7 @@
 
       <a
         href="#"
-        class="nav-icon flex bg-UserProfile bg-cover"
+        class="flex bg-cover nav-icon bg-UserProfile"
         id="profileListToggle"
         style="background-image: url('@auth{{auth()->user()->image != '' ? URL('/storage/users_profile/'. auth()->user()->image) : URL('/image/profile.jpg')}}@else {{URL('/image/profile.jpg')}} @endauth ')"
       >
@@ -77,13 +78,13 @@
       >
         <form action="/search" method="get" class="w-full h-full">
           <i
-            class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-gray-500"
+            class="absolute text-gray-500 fa-solid fa-magnifying-glass left-4 top-4"
           ></i>
           <input
             type="text"
             name="query"
             id=""
-            class="w-full h-full outline-none pr-3 pl-8 rounded-sm bg-dark-600"
+            class="w-full h-full pl-8 pr-3 rounded-sm outline-none bg-dark-600"
             placeholder="Search..."
           />
         </form>
@@ -95,31 +96,31 @@
       >
         <ul>
           @auth
-          <li class="hover:bg-dark-400 px-5">
-            <a href="/u/{{'@' . auth()->user()->username}}/profile" class="w-full h-10 flex items-center">My Profile</a>
+          <li class="px-5 hover:bg-dark-400">
+            <a href="/u/{{'@' . auth()->user()->username}}/profile" class="flex items-center w-full h-10">My Profile</a>
           </li>
               
-          <li class="hover:bg-dark-400 px-5">
-            <a href="/u/{{'@' . auth()->user()->username}}/saved" class="w-full h-10 flex items-center">Saved</a>
+          <li class="px-5 hover:bg-dark-400">
+            <a href="/u/{{'@' . auth()->user()->username}}/saved" class="flex items-center w-full h-10">Saved</a>
           </li>
                     
-          <li class="hover:bg-dark-400 px-5">
-            <a href="/settings/" class="w-full h-10 flex items-center">Setting</a>
+          <li class="px-5 hover:bg-dark-400">
+            <a href="/settings/" class="flex items-center w-full h-10">Setting</a>
           </li>
-          <li class="hover:bg-dark-400 px-5">
-            <a href="#" class="w-full h-10 flex items-center"
+          <li class="px-5 hover:bg-dark-400">
+            <a href="#" class="flex items-center w-full h-10"
               >Report Problems</a
             >
           </li>
-          <li class="hover:bg-dark-400 px-5">
+          <li class="px-5 hover:bg-dark-400">
             <form action="/user/logout" method="post">
               @csrf
-              <input type="submit" href="#" class="w-full h-10 flex items-center cursor-pointer" value='log out'>
+              <input type="submit" href="#" class="flex items-center w-full h-10 cursor-pointer" value='log out'>
             </form>
           </li>
           @else
-          <li class="hover:bg-dark-400 px-5">
-            <a href="/login" class="w-full h-10 flex items-center">Sign Up / Login in</a>
+          <li class="px-5 hover:bg-dark-400">
+            <a href="/login" class="flex items-center w-full h-10">Sign Up / Login in</a>
           </li>
           @endauth
 
@@ -128,53 +129,53 @@
     </nav>
 
     <div
-      class="w-64  py-3 bg-dark-300 absolute right-0 bottom-0 top-14 z-30 "
+      class="absolute bottom-0 right-0 z-30 hidden w-64 py-3 bg-dark-300 top-14"
       id="NavList"
     >
       <ul>
-        <li class="hover:bg-dark-400 px-5">
-          <a href="/" class="w-full h-10 flex items-center gap-2"
+        <li class="px-5 hover:bg-dark-400">
+          <a href="/" class="flex items-center w-full h-10 gap-2"
             ><i class="fa-solid fa-house"></i> Home</a
           >
         </li>
-        <li class="hover:bg-dark-400 px-5">
-          <a href="/anime-list" class="w-full h-10 flex items-center gap-2"
+        <li class="px-5 hover:bg-dark-400">
+          <a href="/anime-list" class="flex items-center w-full h-10 gap-2"
             ><i class="fa-solid fa-list"></i> Anime list</a
           >
         </li>
-        <li class="hover:bg-dark-400 px-5">
-          <a href="#" class="w-full h-10 flex items-center gap-2">
+        <li class="px-5 hover:bg-dark-400">
+          <a href="#" class="flex items-center w-full h-10 gap-2">
             <i class="fa-solid fa-arrow-trend-up"></i>
             Trending</a
           >
         </li>
-        <li class="hover:bg-dark-400 px-5">
-          <a href="#" class="w-full h-10 flex items-center gap-2">
+        <li class="px-5 hover:bg-dark-400">
+          <a href="#" class="flex items-center w-full h-10 gap-2">
             <i class="fa-solid fa-clock"></i>
             Fresh
           </a>
         </li>
-        <li class="hover:bg-dark-400 px-5">
-          <a href="#" class="w-full h-10 flex items-center gap-2">
+        <li class="px-5 hover:bg-dark-400">
+          <a href="#" class="flex items-center w-full h-10 gap-2">
             <i class="fa-solid fa-chart-simple"></i>
             Top
           </a>
         </li>
 
         <li class="px-5">
-          <span class="w-full h-10 flex items-center gap-2 text-sm font-bold"
+          <span class="flex items-center w-full h-10 gap-2 text-sm font-bold"
             >Popular Tags</span
           >
         </li>
 
-        <li class="hover:bg-dark-400 px-5">
-          <a href="#" class="w-full h-10 flex items-center gap-2">
+        <li class="px-5 hover:bg-dark-400">
+          <a href="#" class="flex items-center w-full h-10 gap-2">
             <i class="fa-solid fa-tag"></i>
             AMV
           </a>
         </li>
-        <li class="hover:bg-dark-400 px-5">
-          <a href="#" class="w-full h-10 flex items-center gap-2">
+        <li class="px-5 hover:bg-dark-400">
+          <a href="#" class="flex items-center w-full h-10 gap-2">
             <i class="fa-solid fa-tag"></i>
             Funny
           </a>
