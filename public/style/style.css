@@ -1,0 +1,12 @@
+.clicked {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.POSTS:first-of-type {
+    border: none;
+}
+
+.show {
+    display: flex;
+}

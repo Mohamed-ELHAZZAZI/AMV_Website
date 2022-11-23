@@ -1,9 +1,4 @@
 <x-layout>
-  <style>
-    .show {
-      display: flex;
-    }
-  </style>
   <link rel="stylesheet" href="{{asset('/ijaboCropTool/ijaboCropTool.min.css')}}">
   <div class="min-h-screen">
     <x-settings-profile />

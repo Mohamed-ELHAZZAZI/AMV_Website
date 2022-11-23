@@ -13,12 +13,6 @@
     <title>Document</title>
     <script src="{{asset('/js/jquery.js')}}"></script>
   </head>
-    <style>
-      .clicked {
-        border-color: #3b82f6;
-        color: #3b82f6
-      }
-    </style>
   <body class="bg-dark-500 text-gray-200 relative min-h-screen">
     <nav
       class="h-14 w-ful border-b border-gray-400 border-opacity-50 flex gap-3 items-center px-2 sm:px-6 sm:gap-2"

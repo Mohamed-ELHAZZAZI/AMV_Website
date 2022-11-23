@@ -1,9 +1,4 @@
 <x-layout>
-    <style>
-        .POSTS:first-of-type {
-            border: none;
-        }
-    </style>
     <div class="w-11/12 md:w-4/5 max-w-2xl mx-auto mt-3">
         @isset($tag)
         <div class="w-full py-1 mb-6 border-b border-gray-400 border-opacity-30 pb-5 sm:pb-10">
