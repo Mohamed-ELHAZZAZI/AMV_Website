@@ -6,3 +6,7 @@
 .nav-icon {
     @apply p-1.5 rounded-full hover:bg-opacity-10 hover:bg-white w-7 h-7 box-content text-lg flex items-center justify-center;
 }
+
+.line-ellipsis {
+    @apply whitespace-nowrap overflow-hidden text-ellipsis;
+}
