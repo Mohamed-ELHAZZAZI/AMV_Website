@@ -19,5 +19,8 @@
             </div>
         </div>
         @endforeach
+        <div class="col-span-2">
+            {{$animes->links()}}
+        </div>
     </div>
 </x-layout>

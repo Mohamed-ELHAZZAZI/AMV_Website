@@ -11,7 +11,7 @@ class AnimesController extends Controller
     function index() {
         
         return view('animes.index', [
-            'animes' => Anime::orderBy('score', 'DESC')->filter(request(['name']))->paginate(20)
+            'animes' => Anime::orderBy('score', 'DESC')->filter(request(['name']))->simplePaginate(20)
         ]);
     }
 }
