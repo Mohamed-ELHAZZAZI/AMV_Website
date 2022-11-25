@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 class AnimesController extends Controller
 {
     function index() {
-
+        
         return view('animes.index', [
-            'animes' => DB::table('animes')->orderBy('score', 'desc')->simplePaginate(50)->fragment('animes')
+            'animes' => Anime::orderBy('score', 'DESC')->filter(request(['name']))->paginate(20)
         ]);
     }
 }
