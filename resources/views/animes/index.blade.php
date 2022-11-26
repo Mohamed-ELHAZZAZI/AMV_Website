@@ -1,13 +1,13 @@
 <x-layout>
     <div class="md:w-full md:max-w-4xl bg-dark-600 px-1 m-auto mt-3 mini-sm:px-3 py-2 sm:py-3 rounded-lg" style="width: 97%">
-        <form action="?" method="GET" class="flex gap-1 h-10 sm:gap-3">
+        <form action="" method="GET" class="flex gap-1 h-10 sm:gap-3" id="search_name_form">
             <button type="button" class="text-base rounded-full flex gap-2 items-center justify-center w-10 h-10 sm:w-24 hover:bg-dark-500" id="filters_toggle"><i class="fa-solid fa-sliders"></i> <span class="hidden sm:block">filters</span></button>
             <input type="text" name="name" class="bg-transparent w-3/4 max-w-xl sm:w-full" value="@if(request('name')){{request('name')}}@endif" placeholder="Search by name" id="default_name_search">
             <button type="submit" class="w-9 h-9 bg-second rounded-full  mini-sm:ml-2 sm:ml-auto mini-sm:rounded-xl mini-sm:w-28 sm:w-36 mini-sm:h-10" id="search_name"><span class="hidden mini-sm:block" >Search</span><i class="fa-solid fa-magnifying-glass mini-sm:hidden"></i></button>
         </form>
         <form action="?" method="GET" class="hidden" id="filters_container">
             <div class="w-full mt-10 gap-x-8 gap-y-4 flex flex-col sm:grid sm:grid-cols-2">
-                    <input type="hidden">
+                    <input type="hidden" name="name" id="hidden_name_search">
                     <x-anime-type-filter :types="$types" />
                     <x-anime-demographics-filter :demogs="$demog"/>
                     <x-anime-geners-filter :geners="$geners"/>
@@ -35,6 +35,18 @@
     </div>
 
     <script>
+        $('#search_name_form').on('submit', function(e) {
+            if (!$('#filters_container').hasClass('hidden')) {
+                e.preventDefault()
+                $('#filters_container').submit()
+            }
+        })
+
+        $('#filters_container').on('submit', function() {
+            value = $('#default_name_search').val()
+            $('#hidden_name_search').val(value)
+        })
+
         $('#filters_toggle').on('click', function() {
             $('#filters_container').toggleClass('hidden')
             $('#filters_toggle').toggleClass('bg-dark-500')
