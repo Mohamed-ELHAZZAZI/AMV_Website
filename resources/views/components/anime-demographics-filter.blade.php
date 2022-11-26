@@ -1,4 +1,4 @@
-@props(['demogs'])
+@props(['demographics'])
     <div
   class="relative w-full h-10 rounded border border-gray-400 border-opacity-30"
 >
@@ -17,7 +17,7 @@
         >All</a
         >
       </li>
-      @foreach ($demogs as $demo)
+      @foreach ($demographics as $demo)
           
       <li>
         <a

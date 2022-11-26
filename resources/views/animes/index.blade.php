@@ -9,9 +9,10 @@
             <div class="w-full mt-10 gap-x-8 gap-y-4 flex flex-col sm:grid sm:grid-cols-2">
                     <input type="hidden" name="name" id="hidden_name_search">
                     <x-anime-type-filter :types="$types" />
-                    <x-anime-demographics-filter :demogs="$demog"/>
+                    <x-anime-demographics-filter :demographics="$demographics"/>
                     <x-anime-geners-filter :geners="$geners"/>
                     <x-anime-season-filter />
+                    <x-anime-rating-filter  :ratings="$ratings"/>
                 <button type="submit" class="h-10 bg-second col-span-2"><span class="hidden mini-sm:block" >Search</span><i class="fa-solid fa-magnifying-glass mini-sm:hidden"></i></button>
             </div>
         </form>
@@ -160,6 +161,32 @@
             var value = $(this).attr('data-season');
             $('#SeasonListToggle').attr('value' , value)
             SeasonList.classList.add("hidden");
+        })
+
+
+        //season filter
+
+        var RatingListToggle = document.querySelector("#RatingListToggle");
+        var RatingList = document.querySelector("#RatingList");
+
+        if (RatingListToggle != null) {
+            RatingListToggle.addEventListener("click", function () {
+            if (RatingList.classList.contains("hidden")) {
+                RatingList.classList.remove("hidden");
+                GenersList.classList.add("hidden");
+                DemographicsList.classList.add("hidden");
+                TypeList.classList.add("hidden")
+            } else {
+                RatingList.classList.add("hidden");
+            }
+            });
+        }
+
+        $('.Rating').on('click', function(e) {
+            e.preventDefault();
+            var value = $(this).attr('data-rating');
+            $('#RatingListToggle').attr('value' , value)
+            RatingList.classList.add("hidden");
         })
 
     </script>

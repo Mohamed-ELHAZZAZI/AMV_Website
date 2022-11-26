@@ -24,7 +24,10 @@ class Anime extends Model
             })
             ->when($request->has('type') && $request->type != "All", function ($q) use ($request) {
                 $q->where('type', 'like', '%' . $request->type . '%');
-            });
+            })
+            ->when($request->has('rating') && $request->rating != "All" ,function ($q) use ($request) {
+                $q->where('rating', 'like', '%' . $request->rating . '%');
+            })->orderBy('score', 'DESC');
 
     }
 }
