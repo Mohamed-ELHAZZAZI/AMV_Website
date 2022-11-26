@@ -9,24 +9,22 @@ class Anime extends Model
 {
     use HasFactory;
 
-    public function scopeFilter($query, array $filters)
+    public function scopeFilter($query, $request)
     {
-        if ($filters['name'] ?? false) {
-            // dd('ee');
-            $query->where('name', 'like', '%' . $filters['name'] . '%');
-        }
-    }
 
-    static function dataFilter($demo, $row)
-    {
-        $fil = [];
-        foreach ($demo as $key => $d) {
-            foreach (explode(',', $d->$row) as $key => $value) {
-                if ($value && !in_array($value, $fil) && $value != 'Unknown') {  
-                    array_push($fil,$value);
-                }
-            }
-        }
-        return $fil;
+        $query
+            ->when($request->has('name'), function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            })
+            ->when($request->has('geners') && $request->geners != "All", function ($q) use ($request) {
+                $q->where('geners', 'like', '%' . $request->geners . '%');
+            })
+            ->when($request->has('demographics') && $request->demographics != "All", function ($q) use ($request) {
+                $q->where('demographics', 'like', '%' . $request->demographics . '%');
+            })
+            ->when($request->has('type') && $request->type != "All", function ($q) use ($request) {
+                $q->where('type', 'like', '%' . $request->type . '%');
+            });
+
     }
 }

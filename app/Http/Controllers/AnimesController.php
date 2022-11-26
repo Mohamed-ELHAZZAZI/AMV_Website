@@ -4,22 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\Anime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class AnimesController extends Controller
 {
-    function index()
+
+    protected function f($arr)
     {
-        $geners = Anime::dataFilter(DB::table('animes')->select(DB::raw('geners'))->groupBy('geners')->get(), 'geners');
-        $demog = Anime::dataFilter(DB::table('animes')->select(DB::raw('demographics'))->groupBy('demographics')->get(), 'demographics');
-        $types = Anime::dataFilter(DB::table('animes')->select(DB::raw('type'))->groupBy('type')->get(), 'type');
-        sort($geners);
-        sort($demog);
-        sort($types);
+        $data = collect($arr)->flatten();
+
+
+        $dataFl = [];
+        foreach ($data as $item) {
+
+            $p = explode(',', (string) $item);
+            foreach ($p as $i) {
+                if ($i && !in_array($i, $dataFl)) {
+                    $dataFl[] = $i;
+                }
+            }
+        }
+        return Arr::sort($dataFl);
+    }
+
+
+    function index(Request $request)
+    {
+        
+
+        $geners = $this->f(collect(DB::select('select distinct `geners` from `animes`'))->pluck('geners'));
+        $demographics = $this->f(collect(DB::select('select distinct `demographics` from `animes`'))->pluck('demographics'));
+        $types = $this->f(collect(DB::select('select distinct `type` from `animes`'))->pluck('types'));
+
         return view('animes.index', [
-            'animes' => Anime::orderBy('score', 'DESC')->filter(request(['name']))->simplePaginate(20),
+            'animes' => Anime::filter($request)->simplePaginate(20)->withQueryString(),
             'types' => $types,
-            'demog' => $demog,
+            'demog' => $demographics,
             'geners' => $geners,
         ]);
     }
