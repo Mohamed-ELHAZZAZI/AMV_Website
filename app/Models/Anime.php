@@ -16,4 +16,17 @@ class Anime extends Model
             $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
     }
+
+    static function dataFilter($demo, $row)
+    {
+        $fil = [];
+        foreach ($demo as $key => $d) {
+            foreach (explode(',', $d->$row) as $key => $value) {
+                if ($value && !in_array($value, $fil) && $value != 'Unknown') {  
+                    array_push($fil,$value);
+                }
+            }
+        }
+        return $fil;
+    }
 }

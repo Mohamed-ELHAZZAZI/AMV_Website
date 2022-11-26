@@ -8,9 +8,9 @@
         <form action="?" method="GET" class="hidden" id="filters_container">
             <div class="w-full mt-10 gap-x-8 gap-y-4 flex flex-col sm:grid sm:grid-cols-2">
                     <input type="hidden">
-                    <x-anime-type-filter />
-                    <x-anime-demographics-filter />
-                    <x-anime-geners-filter />
+                    <x-anime-type-filter :types="$types" />
+                    <x-anime-demographics-filter :demogs="$demog"/>
+                    <x-anime-geners-filter :geners="$geners"/>
                     <x-anime-season-filter />
                 <button type="submit" class="h-10 bg-second col-span-2"><span class="hidden mini-sm:block" >Search</span><i class="fa-solid fa-magnifying-glass mini-sm:hidden"></i></button>
             </div>
