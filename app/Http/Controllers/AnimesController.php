@@ -33,10 +33,10 @@ class AnimesController extends Controller
     {
         
 
-        $geners = $this->f(collect(DB::select('select `geners` from `anime_geners` order by `geners` DESC'))->pluck('geners'));
-        $demographics = $this->f(collect(DB::select('select `demographics` from `anime_demographics` order by `demographics` DESC'))->pluck('demographics'));
-        $types = $this->f(collect(DB::select('select `types` from `anime_types` order by `types` DESC'))->pluck('types'));
-        $ratings = $this->f(collect(DB::select('select `rating` from `anime_rating`'))->pluck('rating'));
+        $geners = $this->f(collect(DB::select('select `geners` from `animes_g` order by `geners` DESC'))->pluck('geners'));
+        $demographics = $this->f(collect(DB::select('select `demographics` from `animes_d` order by `demographics` DESC'))->pluck('demographics'));
+        $types = $this->f(collect(DB::select('select `types` from `animes_t` order by `types` DESC'))->pluck('types'));
+        $ratings = $this->f(collect(DB::select('select `ratings` from `animes_r`'))->pluck('ratings'));
 
         return view('animes.index', [
             'animes' => Anime::filter($request)->simplePaginate(20)->withQueryString(),
